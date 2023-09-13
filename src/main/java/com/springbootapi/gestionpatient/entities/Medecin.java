@@ -26,5 +26,5 @@ public class Medecin {
     private String specialite;
 
     @OneToMany(mappedBy = "medecin", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Consultation> consultations = new ArrayList<Consultation>();
+    private List<RendezVous> rendezVous = new ArrayList<RendezVous>();
 }
