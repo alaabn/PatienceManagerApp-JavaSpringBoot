@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="fr">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestion Medecin</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js"
+        integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa"
+        crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/eb88cc226a.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="card mt-5 m-auto">
+            <div class="card-header">
+                <h1>Tableau Consultation</h1>
+            </div>
+
+            <ul class="list-group list-group-flush ">
+                <li class="list-group-item d-flex justify-content-around">
+
+                    <div class="p-2 flex-shrink-1">
+                        <a th:href="@{/addConsultation}" class="btn btn-success">Ajouter Consultation</a>
+                    </div>
+
+                    <form th:action="@{/consultation}" class="p-2 flex w-50">
+                        <div class="row">
+                            <input type="date" name="date" class="form-control col" placeholder="Chercher Par Date" />
+                            <button type="submit" class="btn btn-primary ms-2 col-1">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                    </form>
+
+
+                </li>
+            </ul>
+
+            <div class="card-body">
+
+                <table class="table">
+                    <thead class="thead-light">
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Date Consultation</th>
+                            <th scope="col">Rapport Consultation</th>
+                            <th scope="col">prixConsultation</th>
+                            <th scope="col">Rendez-vous</th>
+                            <th scope="col"> Edit</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="c:${data}">
+                            <td th:text="${c.id}"></td>
+                            <td th:text="${c.dateConsultation}"></td>
+                            <td th:text="${c.rapportConsultation}"></td>
+                            <td th:text="${c.prixConsultation}"></td>
+                            <td th:text="${c.rendezVous.dateRDV}"></td>
+                            <td>
+                                <a th:href="@{/deleteConsultation(id=${c.id})}" class="btn btn-danger"> <span
+                                        class="fa fa-trash"></span>
+                                </a>
+                                <a th:href="@{/updateConsultation(id=${c.id})}" class="btn btn-warning"> <span
+                                        class="fa-solid fa-pen-to-square"></span> </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="w-100 d-flex justify-content-center">
+                    <nav aria-label="Page navigation m-auto">
+                        <ul class="pagination">
+                            <li th:each="i,s:${pages}"
+                                th:class="${current == s.index ? 'page-item active' : 'page-item'}">
+                                <a class="page-link" th:text="${s.index+1}"
+                                    th:href="@{/consultation(date=${date}, page=${s.index})}"></a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

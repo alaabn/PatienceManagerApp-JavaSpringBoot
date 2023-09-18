@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="fr">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestion Consultation</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js"
+        integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa"
+        crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/eb88cc226a.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="card mt-5 m-auto">
+            <div class="card-header">
+                <h1 th:text="${consultation.id} ? 'Edit Consultation' : 'Ajout Consultation'"></h1>
+            </div>
+            <div class="card-body">
+
+                <form
+                    th:action="${consultation.id} ? @{/updateConsultation(id=${consultation.id})} : @{/addConsultation}"
+                    th:object="${consultation}" method="post">
+                    <div class="mb-3">
+                        <label for="dateConsultation" class="form-label">Date Consultation:</label>
+                        <input type="date" th:field="*{dateConsultation}" class="form-control" id="dateConsultation"
+                            placeholder="dateConsultation">
+                        <span th:if="${#fields.hasErrors('dateConsultation')}" class="text-danger"
+                            th:errors="*{dateConsultation}"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="rapportConsultation" class="form-label">Rapport Consultation:</label>
+                        <input type="text" th:field="*{rapportConsultation}" class="form-control"
+                            id="rapportConsultation" placeholder="rapportConsultation">
+                        <span th:if="${#fields.hasErrors('rapportConsultation')}" class="text-danger"
+                            th:errors="*{rapportConsultation}"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="prixConsultation" class="form-label">Prix Consultation:</label>
+                        <input type="number" th:field="*{prixConsultation}" class="form-control" id="prixConsultation"
+                            placeholder="prixConsultation">
+                        <span th:if="${#fields.hasErrors('prixConsultation')}" class="text-danger"
+                            th:errors="*{prixConsultation}"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="rendezVous" class="form-label">Rendez-vous:</label>
+                        <select class="form-select" th:field="*{rendezVous.id}" id="rendezVous">
+                            <option th:each="r:${allRendezVous}" th:value="${r.id}" th:text="${r.dateRDV}"
+                                th:selected="${consultation.rendezVous.id == r.id}">
+                            </option>
+                        </select>
+                    </div>
+
+
+                    <input type="submit" class="btn btn-primary" th:value="${consultation.id} ? 'Editer'  : 'Ajouter'">
+                </form>
+
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
