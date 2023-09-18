@@ -77,7 +77,7 @@ public class MedecinController {
             model.addAttribute("medecin", medecin);
             return "medecin/medecinForm";
         }
-        System.out.println(medecin);
+
         ms.addOrUpdateMedecin(medecin);
         return "redirect:/medecin";
     }

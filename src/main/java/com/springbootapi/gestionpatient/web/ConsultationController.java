@@ -62,9 +62,8 @@ public class ConsultationController {
             Model model,
             @Valid @ModelAttribute Consultation consultation,
             BindingResult result) {
-        System.out.println(consultation);
+
         if (result.hasErrors()) {
-            System.err.println(result);
             List<RendezVous> allRendezVous = rs.getAllRendezVous();
             model.addAttribute("allRendezVous", allRendezVous);
             return "consultation/consultationForm";
