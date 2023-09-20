@@ -1,6 +1,7 @@
 package com.springbootapi.gestionpatient.services;
 
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -39,6 +40,11 @@ public class ConsultationService implements IConsultationService {
     @Override
     public Page<Consultation> filterConsultationByDate(Date date, Pageable p) {
         return cr.findByDateConsultation(date, p);
+    }
+
+    @Override
+    public List<Consultation> getAllConsultation() {
+        return cr.findAll();
     }
 
 }
