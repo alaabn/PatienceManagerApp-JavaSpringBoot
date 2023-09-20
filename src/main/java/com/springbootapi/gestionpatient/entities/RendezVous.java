@@ -5,6 +5,8 @@ import java.util.Date;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -38,12 +40,15 @@ public class RendezVous {
     @Temporal(TemporalType.TIME)
     private LocalTime heureRDV;
 
-    @ManyToOne(targetEntity = Patient.class, fetch = FetchType.LAZY)
+    @JsonBackReference("pr")
+    @ManyToOne(targetEntity = Patient.class, fetch = FetchType.LAZY, optional = true)
     private Patient patient;
 
-    @ManyToOne(targetEntity = Medecin.class, fetch = FetchType.LAZY)
+    @JsonBackReference("mr")
+    @ManyToOne(targetEntity = Medecin.class, fetch = FetchType.LAZY, optional = true)
     private Medecin medecin;
 
-    @OneToOne(mappedBy = "rendezVous", targetEntity = Consultation.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonBackReference("cr")
+    @OneToOne(mappedBy = "rendezVous", targetEntity = Consultation.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = true)
     private Consultation consultation;
 }

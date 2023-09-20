@@ -3,6 +3,8 @@ package com.springbootapi.gestionpatient.entities;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -29,6 +31,7 @@ public class Patient {
     private String nom;
     private String email;
 
+    @JsonManagedReference("pr")
     @OneToMany(mappedBy = "patient", targetEntity = RendezVous.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<RendezVous> rendezVous = new ArrayList<RendezVous>();
 }

@@ -4,6 +4,8 @@ import java.util.Date;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -34,6 +36,7 @@ public class Consultation {
     private String rapportConsultation;
     private Double prixConsultation;
 
+    @JsonManagedReference("cr")
     @OneToOne(targetEntity = RendezVous.class, fetch = FetchType.LAZY, orphanRemoval = true)
     private RendezVous rendezVous;
 }
