@@ -10,11 +10,11 @@ classDiagram
     Patient : +String nom
     Patient : +String email
 
-    class Medcin
-    Medcin : -Long Id
-    Medcin : +String nom
-    Medcin : +String email
-    Medcin : +String specialite
+    class Medecin
+    Medecin : -Long Id
+    Medecin : +String nom
+    Medecin : +String email
+    Medecin : +String specialite
 
     class RendezVous
     RendezVous : -Long Id
@@ -28,4 +28,4 @@ classDiagram
 
 RendezVous "1" -- "1" Consultation
 Patient "1" -- "*" RendezVous
-Medcin "1" -- "*" RendezVous
+Medecin "1" -- "*" RendezVous

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="fr">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestion Rendez-vous</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js"
+        integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa"
+        crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/eb88cc226a.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div class="container">
+        <div th:replace="fragments/navbar"></div>
+
+        <div class="card mt-5 m-auto">
+            <div class="card-header">
+                <h1 th:text="${rendezVous.id} ? 'Edit Rendez-vous' : 'Ajout Rendez-vous'"></h1>
+            </div>
+            <div class="card-body">
+
+                <form th:action="${rendezVous.id} ? @{/updateRendezVous(id=${rendezVous.id})} : @{/addRendezVous}"
+                    th:object="${rendezVous}" method="post">
+                    <div class="mb-3">
+                        <label for="dateRDV" class="form-label">Date Rendez-vous:</label>
+                        <input type="date" th:field="*{dateRDV}" class="form-control" id="dateRDV"
+                            placeholder="dateRDV">
+                        <span th:if="${#fields.hasErrors('dateRDV')}" class="text-danger" th:errors="*{dateRDV}"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="heureRDV" class="form-label">Heure Rendez-vous:</label>
+                        <input type="time" th:field="*{heureRDV}" class="form-control" id="heureRDV"
+                            placeholder="heureRDV" step="1800" min="08:00" max="16:00">
+                        <span th:if="${#fields.hasErrors('heureRDV')}" class="text-danger"
+                            th:errors="*{heureRDV}"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="medecin" class="form-label">Medecin:</label>
+                        <select class="form-select" th:field="*{medecin.id}" id="medecin">
+                            <option th:each="i : ${medecins}" th:value="${i.id}" th:text="${i.nom}"
+                                th:selected="${rendezVous.medecin.id == i.id}">
+                            </option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="patient" class="form-label">Patient:</label>
+                        <select class="form-select" th:field="*{patient.id}" id="patient">
+                            <option th:each="i : ${patients}" th:value="${i.id}" th:text="${i.nom}"
+                                th:selected="${rendezVous.patient.id == i.id}">
+                            </option>
+                        </select>
+                    </div>
+
+
+                    <input type="submit" class="btn btn-primary" th:value="${rendezVous.id} ? 'Editer'  : 'Ajouter'">
+                </form>
+
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
