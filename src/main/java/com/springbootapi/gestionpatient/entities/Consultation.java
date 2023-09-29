@@ -1,5 +1,6 @@
 package com.springbootapi.gestionpatient.entities;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -14,6 +15,9 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
+import jakarta.validation.constraints.FutureOrPresent;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
@@ -32,11 +36,14 @@ public class Consultation {
     private Long id;
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @FutureOrPresent(message = "la date de la consultation doit être aujourd'hui ou dans le futur")
     private Date dateConsultation;
+    @Pattern(regexp = "[^[A-Za-z]+[\\s]{1}]+", message = "le nom complet ne contient que des mots alphabétiques commençant par une majuscule. example: Enis Hachicha")
     private String rapportConsultation;
-    private Double prixConsultation;
+    @Max(value = 100)
+    private BigDecimal prixConsultation;
 
-    @JsonManagedReference("cr")
+    @JsonManagedReference("consultationRef")
     @OneToOne(targetEntity = RendezVous.class, fetch = FetchType.LAZY, orphanRemoval = true)
     private RendezVous rendezVous;
 }
