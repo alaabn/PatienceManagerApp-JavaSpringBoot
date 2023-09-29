@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestion Medecin</title>
+    <title>Gestion Rendez-vous</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
@@ -19,6 +19,8 @@
 
 <body>
     <div class="container">
+        <div th:replace="fragments/navbar"></div>
+
         <div class="card mt-5 m-auto">
             <div class="card-header">
                 <h1>Tableau Rendez-vous</h1>

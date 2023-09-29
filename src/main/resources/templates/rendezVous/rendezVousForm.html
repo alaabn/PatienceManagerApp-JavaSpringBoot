@@ -19,6 +19,8 @@
 
 <body>
     <div class="container">
+        <div th:replace="fragments/navbar"></div>
+
         <div class="card mt-5 m-auto">
             <div class="card-header">
                 <h1 th:text="${rendezVous.id} ? 'Edit Rendez-vous' : 'Ajout Rendez-vous'"></h1>
@@ -37,7 +39,7 @@
                     <div class="mb-3">
                         <label for="heureRDV" class="form-label">Heure Rendez-vous:</label>
                         <input type="time" th:field="*{heureRDV}" class="form-control" id="heureRDV"
-                            placeholder="heureRDV">
+                            placeholder="heureRDV" step="1800" min="08:00" max="16:00">
                         <span th:if="${#fields.hasErrors('heureRDV')}" class="text-danger"
                             th:errors="*{heureRDV}"></span>
                     </div>

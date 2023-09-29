@@ -19,6 +19,8 @@
 
 <body>
     <div class="container">
+        <div th:replace="fragments/navbar"></div>
+
         <div class="card mt-5 m-auto">
             <div class="card-header">
                 <h1 th:text="${consultation.id} ? 'Edit Consultation' : 'Ajout Consultation'"></h1>
